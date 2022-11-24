@@ -1,41 +1,51 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { FaGooglePlusG, FaGooglePlusSquare } from 'react-icons/fa';
+import { FaGooglePlusG } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
-// import useToken from '../../Hooks/useToken';
+import useSaveUser from '../../Hooks/usersHook';
+import Spinner from '../Shared/Spinner';
 
 const SignIn = () => {
     const [signInError, setSignInError] = useState('');
-    // const [createdUser, setCreatedUser] = useState('');
-    const { register, handleSubmit, formState: { errors } } = useForm();
     const { signInFunc, googleLogin } = useContext(AuthContext);
-    // const [token] = useToken(createdUser);
-    // const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [loading, setLoading] = useState(false);
+    const [saveUser, setSaveUser] = useState('')
+    const [results] = useSaveUser(saveUser);
+    const navigate = useNavigate();
 
-    // if (token) {
-    //     navigate('/');
-    // }
+    if (results.acknowledged) {
+        navigate('/');
+        toast.success('login your account');
+    }
     const handleSignIn = data => {
         setSignInError('');
+        setLoading(true);
         signInFunc(data.email, data.password)
             .then(results => {
                 const user = results.user;
+                setSaveUser({name: user.displayName, email: user.email})
+                setLoading(false)
             })
             .catch(err => {
-                console.log(err.message)
                 setSignInError(err.message)
+                setLoading(false);
             })
     }
 
     const handleGoogleLogin = () => {
+        setLoading(true);
         googleLogin()
             .then(results => {
-                // navigate('/');
+                const user = results.user;
+                setSaveUser({name: user.displayName, email: user.email, photo: user.photoURL})
+                setLoading(false)
             })
             .catch(err => {
                 setSignInError(err.message)
+                setLoading(false)
             })
 
     }
@@ -60,7 +70,7 @@ const SignIn = () => {
                         {signInError && <small>{signInError}</small>}
                     </div>
                     <div className='text-center'>
-                        <input className='btn btn-circle w-full' value='Sign In' type="submit" />
+                        <button className='btn btn-circle w-full' type="submit" >{loading? <Spinner/> : 'Sign In'}</button>
                     </div>
                 </form>
                 <p className='text-sm text-center mt-1'>Create new account <Link to='/register' className='text-blue-500 hover:link'>Sign up</Link></p>

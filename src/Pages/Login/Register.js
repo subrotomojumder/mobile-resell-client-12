@@ -1,75 +1,75 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { FaGooglePlusG, FaGooglePlusSquare } from 'react-icons/fa';
+import { FaGooglePlusG} from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
-// import useToken from '../../Hooks/useToken';
+import useSaveUser from '../../Hooks/usersHook';
+import Spinner from '../Shared/Spinner';
 
 const Register = () => {
     const { createUser, updateUser, googleLogin } = useContext(AuthContext);
-    const [registerError, setRegisterError] = useState('');
-    // const [createdUser, setCreatedUser] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
-    // const [token] = useToken(createdUser);
-    // const navigate = useNavigate();
+    const [registerError, setRegisterError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [saveUser, setSaveUser] = useState('');
+    const [results] = useSaveUser(saveUser);
+    const navigate = useNavigate();
 
-    // if (token) {
-    //     navigate('/');
-    // }
+    if (results.acknowledged) {
+        toast.success('Create your account')
+        navigate('/');
+    }
     const handleRegister = data => {
         const email = data.email;
         const password = data.password;
-        const name  = data.name;
+        const name = data.name;
+        const role = data.role;
         const formData = new FormData();
         formData.append('image', data.image[0]);
         setRegisterError('');
+        setLoading(true);
         fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageBB_key}`, {
             method: "POST",
             body: formData
         })
-        .then(res => res.json())
-        .then(data =>{
-            createUser(email, password)
-            .then(() => {
-                const userInfo = {
-                    displayName: name,
-                    photoURL: data?.data?.display_url
-                }
-                updateUser(userInfo)
-                    .then(res => {
-
-                    }).catch(e => setRegisterError(e.message))
-            }).catch(e => setRegisterError(e.message))
-        })
-        
-        
-    }
+            .then(res => res.json())
+            .then(data => {
+                const photo = data?.data?.display_url;
+                createUser(email, password)
+                    .then(() => {
+                        const userInfo = {
+                            displayName: name,
+                            photoURL: photo
+                        }
+                        updateUser(userInfo)
+                            .then(res => {
+                                setSaveUser({ name, email, role, photo })
+                                setLoading(false)
+                            }).catch(e => {
+                                setRegisterError(e.message)
+                                setLoading(false)
+                            })
+                    }).catch(e => {
+                        setRegisterError(e.message)
+                        setLoading(false)
+                    })
+            });
+    };
     const handleGoogleLogin = () => {
+        setLoading(true)
         googleLogin()
             .then(results => {
-                // navigate('/');
+                const user = results.user;
+                setSaveUser({name: user.displayName, email: user.email, photo: user.photoURL})
+                setLoading(false)
             })
             .catch(err => {
                 setRegisterError(err.message)
+                setLoading(false)
             })
     }
-    // const saveUser = (name, email) => {
-    //     const user = {name, email};
-    //     fetch('https://doctors-portals-server.vercel.app/users', {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         // console.log(data)
-    //         setCreatedUser(email)
-    //     })
-    // }
-
+    
     return (
         <div className='h-[700px] flex justify-center items-center'>
             <div className='w-96 border rounded-lg p-8 relative'>
@@ -109,15 +109,15 @@ const Register = () => {
                         {errors.password && <p className='text-red-500 text-sm'>{errors.password?.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs mb-3">
-                        <select {...register("role",)} className="select select-accent w-full" defaultValue='Buyers'>
-                            <option disabled selected>Select a user Role</option>
+                        <select {...register("role",)} className="select select-accent w-full">
+                            <option disabled selected >Select a user Role</option>
+                            <option>Sellers</option>
                             <option value='Buyers'>Buyers</option>
-                            <option value='Sellers'>Sellers</option>
                         </select>
                         {registerError && <small>{registerError}</small>}
                     </div>
                     <div className='text-center'>
-                        <input className='btn btn-circle w-full' value='Register' type="submit" />
+                        <button className='btn btn-circle w-full' type="submit" >{loading ?<Spinner/>: 'Register'}</button>
                     </div>
                 </form>
                 <p className='text-sm text-center mt-1'>Already have an account <Link to='/sign-in' className='text-blue-500 hover:link'>Sign-In</Link></p>
