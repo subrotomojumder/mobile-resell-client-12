@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FaGooglePlusG } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import useSaveUser from '../../Hooks/usersHook';
 import Spinner from '../Shared/Spinner';
@@ -14,10 +14,12 @@ const SignIn = () => {
     const [loading, setLoading] = useState(false);
     const [saveUser, setSaveUser] = useState('')
     const [results] = useSaveUser(saveUser);
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate();
 
     if (results.acknowledged) {
-        navigate('/');
+        navigate(from, {replace: true});
         toast.success('login your account');
     }
     const handleSignIn = data => {

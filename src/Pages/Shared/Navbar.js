@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthProvider';
 
-const Navbar = () => {
+const Navbar = ({children}) => {
     const { user, logOut } = useContext(AuthContext);
     const handleLogOut = () => {
         logOut().then(() => { }).catch(e => toast.error(e.message))
@@ -37,10 +37,10 @@ const Navbar = () => {
                 {
                     user?.email ?
                         <>
-                            <button className="btn btn-square btn-ghost lg:hidden">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+                            <button className="">
                             </button>
-                            <Link className='hidden lg:flex'><button className='btn btn-ghost text-slate-500'>Dashboard</button></Link>
+                            <Link to='/dashboard'><button className='btn btn-ghost text-slate-500'>Dashboard</button></Link>
+                            {children}
                             <button onClick={handleLogOut} className="btn btn-primary rounded-3xl hidden lg:flex btn-sm mr-2">Logout</button>
                         </> :
                         <>
