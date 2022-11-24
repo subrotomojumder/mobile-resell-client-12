@@ -13,6 +13,7 @@ const Navbar = () => {
         <li className='font-semibold'><Link to='/'>Home</Link></li>
         <li className='font-semibold'><Link to=''>All-Products</Link></li>
         <li className='font-semibold'><Link to='/blog'>Blog</Link></li>
+        {user?.email && <li className='font-bold lg:hidden'><button onClick={handleLogOut} >Logout</button></li>}
     </>;
     return (
         <div className="navbar bg-sky-200">
@@ -33,13 +34,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <button className="btn btn-square btn-ghost lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-                </button>
                 {
                     user?.email ?
-                        <button onClick={handleLogOut} className="btn btn-primary rounded-3xl hidden lg:flex btn-sm mr-2">Logout</button>
-                        :
+                        <>
+                            <button className="btn btn-square btn-ghost lg:hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+                            </button>
+                            <Link className='hidden lg:flex'><button className='btn btn-ghost text-slate-500'>Dashboard</button></Link>
+                            <button onClick={handleLogOut} className="btn btn-primary rounded-3xl hidden lg:flex btn-sm mr-2">Logout</button>
+                        </> :
                         <>
                             <Link className="btn btn-primary rounded-3xl hidden lg:flex btn-sm mr-2" to='/register'>Sign-Up</Link>
                             <Link className="btn btn-success text-white mr-4" to='/sign-in'>Login</Link>

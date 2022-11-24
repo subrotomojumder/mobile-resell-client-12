@@ -18,18 +18,32 @@ const Register = () => {
     //     navigate('/');
     // }
     const handleRegister = data => {
+        const email = data.email;
+        const password = data.password;
+        const name  = data.name;
+        const formData = new FormData();
+        formData.append('image', data.image[0]);
         setRegisterError('');
-        console.log(data)
-        createUser(data.email, data.password)
+        fetch(`https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imageBB_key}`, {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data =>{
+            createUser(email, password)
             .then(() => {
                 const userInfo = {
-                    displayName: data.name,
+                    displayName: name,
+                    photoURL: data?.data?.display_url
                 }
                 updateUser(userInfo)
                     .then(res => {
-                        console.log(data.image)
+
                     }).catch(e => setRegisterError(e.message))
             }).catch(e => setRegisterError(e.message))
+        })
+        
+        
     }
     const handleGoogleLogin = () => {
         googleLogin()
@@ -75,7 +89,7 @@ const Register = () => {
                         })}
                             type="file"
                             id='image'
-                            accept='image/*'
+                            // accept='image/*'
                             placeholder="Photo here" className="hidden"
                         />
                         {errors.image && <small className='text-red-500 text-sm mt-[-10px] mr-2'>{errors.image?.message}</small>}
@@ -95,7 +109,7 @@ const Register = () => {
                         {errors.password && <p className='text-red-500 text-sm'>{errors.password?.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs mb-3">
-                        <select {...register("role", )} className="select select-accent w-full" defaultValue='Buyers'>
+                        <select {...register("role",)} className="select select-accent w-full" defaultValue='Buyers'>
                             <option disabled selected>Select a user Role</option>
                             <option value='Buyers'>Buyers</option>
                             <option value='Sellers'>Sellers</option>
