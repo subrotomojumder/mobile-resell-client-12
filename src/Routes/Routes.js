@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import DashboardLayout from '../Layout/DashboardLayout'
 import Main from '../Layout/Main'
+import AllPhones from '../Pages/AllPhpone/AllPhones'
 import AddProduct from '../Pages/Dashboard/AddProduct'
 import MyProducts from '../Pages/Dashboard/MyProducts'
 import DisplayError from '../Pages/DisplayError'
@@ -25,6 +26,11 @@ export const router = createBrowserRouter([
             {
                 path: '/sign-in',
                 element: <SignIn />
+            },
+            {
+                path: 'category/:name',
+                element: <AllPhones/>,
+                loader: ({params})=> fetch(`http://localhost:5000/category/${params.name}`)
             }
         ]
     },
@@ -40,7 +46,8 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/my-products',
                 element: <MyProducts/>
-            }
+            },
+            
         ]
     }
 ])
