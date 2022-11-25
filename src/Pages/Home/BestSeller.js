@@ -33,7 +33,7 @@ const BestSeller = () => {
         },
         {
             phone: oppo,
-            name: 'Oppo F11 Pro',
+            name: 'Realme F11',
             storage: 'Ram: 2GB, Rom: 16GB',
             price: 6500,
             seller: seller1,
