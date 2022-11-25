@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FaGooglePlusG } from 'react-icons/fa';
@@ -8,6 +9,7 @@ import useSaveUser from '../../Hooks/usersHook';
 import Spinner from '../Shared/Spinner';
 
 const SignIn = () => {
+    const {user }= useContext(AuthContext);
     const [signInError, setSignInError] = useState('');
     const { signInFunc, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -15,13 +17,16 @@ const SignIn = () => {
     const [saveUser, setSaveUser] = useState('')
     const [results] = useSaveUser(saveUser);
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
     const navigate = useNavigate();
-
-    if (results.acknowledged) {
-        navigate(from, {replace: true});
-        toast.success('login your account');
-    }
+    const from = location.state?.from?.pathname || '/';
+    console.log(from)
+    
+    useEffect(()=> {
+        if (results?.acknowledged) {
+            navigate(from, {replace: true});
+            toast.success('login your account');
+        }
+    },[results, from])
     const handleSignIn = data => {
         setSignInError('');
         setLoading(true);

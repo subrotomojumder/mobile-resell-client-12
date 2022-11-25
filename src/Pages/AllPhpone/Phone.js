@@ -3,7 +3,6 @@ import { FaRegUser } from 'react-icons/fa';
 
 const Phone = ({ phone }) => {
     const { newPhone, sellerEmail, sellerName, postTime, _id, phoneImage } = phone;
-    console.log(phone.sellerName)
     const { category, condition, description, location, name, phone: buyerPhone, purchasePrice, purchaseYear, sellingPrice, storage } = newPhone;
 
     return (
@@ -18,7 +17,9 @@ const Phone = ({ phone }) => {
                             <h4 className='text-lg'>Condition: {condition}!!</h4>
                             <h5 className='text-xl'>Storage: <span className='font-semibold'>{storage}</span></h5>
                             <h5 className='text-xl'>Resell price: <span className='font-semibold text-orange-400'>{sellingPrice}</span>tk</h5>
+                            <h5>Post: {postTime}</h5>
                             <h5 className='text-xl mb-2'>Original price: <span className='font-semibold'>{purchasePrice}</span>tk</h5>
+
                         </div>
                         <div className='lg:mr-5 text-center max-w-40'>
                             <div>
@@ -38,7 +39,7 @@ const Phone = ({ phone }) => {
                     </div>
                     <p className='text-sm mt-10 lg:mt-6'><span className='font-semibold'>Description:</span> {description}</p>
                     <div className="mt-4 flex justify-center">
-                        <button className="btn btn-primary">Buy Now</button>
+                        <button className="btn btn-primary w-48">Buy Now</button>
                     </div>
                 </div>
             </div>

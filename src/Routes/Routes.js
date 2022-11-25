@@ -29,8 +29,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'category/:name',
-                element: <AllPhones/>,
-                loader: ({params})=> fetch(`http://localhost:5000/category/${params.name}`)
+                element: <PrivateRoute><AllPhones/></PrivateRoute>,
+                loader: async ({params})=> fetch(`http://localhost:5000/category/${params.name}`),
             }
         ]
     },

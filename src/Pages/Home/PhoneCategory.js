@@ -2,19 +2,23 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Spinner from '../Shared/Spinner';
 
 const PhoneCategory = () => {
-    const { data: categories = [], } = useQuery({
+    const { data: categories = [], loading} = useQuery({
         queryKey: ['category'],
         queryFn: () => fetch('http://localhost:5000/category').then(res => res.json())
     })
+    if (loading) {
+        return <Spinner></Spinner>
+    }
     return (
         <div className='bg-slate-50 pt-16'>
             <h3 className='text-3xl font-thin text-center'>Our resell product category</h3>
             
             {
-                categories?.map((category, i) => <div key={i} className={`hero shadow-lg min-h-[70vh] md:px-32 py-4 text-center lg:text-left ${i === 1 ? 'bg-sky-100' : ' '}`}>
-                    <div className={`hero-content flex-col lg:flex-row${i !== 1 ? '-reverse' : ' '}`}>
+                categories?.map((category, i) => <div key={i} className={`hero shadow-lg min-h-[70vh] md:px-24 py-4 text-center lg:text-left ${i === 1 ? 'bg-sky-100' : ' '}`}>
+                    <div className={`hero-content flex-col ${i !== 1 ? 'lg:flex-row-reverse' : 'lg:flex-row justify-between'}`}>
                         <div>
                             <img src={`${category.image}`} alt='' className="rounded-lg lg:w-[800px]" />
                         </div>

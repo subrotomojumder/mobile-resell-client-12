@@ -2,10 +2,13 @@ import React from 'react';
 import { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
+import useUserRole from '../Hooks/checkUserRole';
 import Navbar from '../Pages/Shared/Navbar';
+import Spinner from '../Pages/Shared/Spinner';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
+    const [userRole, isLoading] = useUserRole(user?.email);
     return (
         <div>
             <Navbar>
@@ -22,18 +25,26 @@ const DashboardLayout = () => {
                 <div className="drawer-side bg-sky-50">
                     <label htmlFor="mobile-resell-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-72 text-base-content">
-                    <div className='text-center mt-6 mr-4'>
-                        <img className='w-20 h-20 mx-auto rounded-full' src={user?.photoURL} alt="" />
-                        <p className=' font-bold'> {user?.displayName}</p>
-                        <p className=''>{user?.email}</p>
-                        <hr className='mx-8' />
-                    </div>
-                        <Link to='/dashboard/my-orders' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My orders</li></Link>
-                        <Link to='/dashboard/add-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>Add A product</li></Link>
-                        <Link to='/dashboard/my-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My Products</li></Link>
-                        <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Sellers</li></Link>
-                        <Link to='/dashboard/all-buyers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Buyers</li></Link>
-                        <Link to='/dashboard/reported-items' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>Reported Items</li></Link>
+                        <div className='text-center mt-6 mr-4'>
+                            <img className='w-20 h-20 mx-auto rounded-full' src={user?.photoURL} alt="" />
+                            <p className=' font-bold'> {user?.displayName}</p>
+                            <p className=''>{user?.email}</p>
+                            <hr className='mx-8' />
+                        </div>
+                        { userRole === "Admin" ?
+                            <>
+                                <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Sellers</li></Link>
+                                <Link to='/dashboard/all-buyers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Buyers</li></Link>
+                                <Link to='/dashboard/reported-items' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>Reported Items</li></Link>
+                            </>
+                            : userRole === "Sellers" ?
+                                <>
+                                    <Link to='/dashboard/add-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>Add A product</li></Link>
+                                    <Link to='/dashboard/my-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My Products</li></Link>
+                                </>
+                                :
+                                <Link to='/dashboard/my-orders' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My orders</li></Link>
+                        }
                     </ul>
 
                 </div>

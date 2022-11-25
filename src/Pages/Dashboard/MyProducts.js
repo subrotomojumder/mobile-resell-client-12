@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthProvider';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import Spinner from '../Shared/Spinner';
+import { FaTrash } from 'react-icons/fa';
 
 const MyProducts = () => {
+    const { user } = useContext(AuthContext);
+    const [myProducts, setMyProducts] = useState([]);
+    useEffect(() => {
+        axios.get(`http://localhost:5000/products/${user?.email}`)
+            .then(data => setMyProducts(data?.data));
+    }, [user?.email])
+    if (myProducts.length === 0) {
+        return <div className='h-screen flex items-center justify-center'><p className='text-4xl'>Empty</p></div>
+    }
     return (
         <div>
-            <h2 className='text-3xl'>All products</h2>
+            <h2 className='text-3xl my-2 text-center'>All products</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
@@ -11,26 +27,23 @@ const MyProducts = () => {
                             <th></th>
                             <th>Phone</th>
                             <th>Price</th>
-                            <th>Time</th>
-                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Delete</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    {/* <tbody> */}
-                        {/* {
-                            bookings?.map((booking, i) => <tr key={booking._id}>
-                                <th>{++i}</th>
-                                <td>{booking.treatment}</td>
-                                <td>{booking.appointmentDate}</td>
-                                <td>{booking.slot}</td>
-                                <td>
-                                    {booking.price && !booking.paid && <Link to={`/dashboard/payment/${booking._id}`}>
-                                        <button className='btn btn-sm btn-secondary'>Pay</button>
-                                    </Link>}
-                                    {booking.price && booking.paid && <span className='text-green-600 font-bold ml-1'>Paid</span>}
-                                </td>
+                    <tbody>
+                        {
+                            myProducts?.map(phone => <tr>
+                                <td>{phone?.newPhone.category}</td>
+                                <th>{phone?.newPhone.name}</th>
+                                <td>{phone?.newPhone.sellingPrice}tk</td>
+                                <td>{phone?.newPhone.paid ? <span>Sold</span> :<span>available</span>}</td>
+                                <td> <FaTrash className='text-red-400 text-xl hover:text-red-600 ml-3'/></td>
+                                <td>{!phone?.newPhone.paid && <button className='btn btn-sm btn-ghost bg-slate-100'>advertise</button>}</td>
                             </tr>)
                         }
-                    </tbody> */}
+                    </tbody>
                 </table>
             </div>
         </div >
