@@ -15,7 +15,9 @@ const AddProduct = () => {
 
     const handleAddProduct = newPhone => {
         const imageFile = newPhone.image;
+        const category = newPhone.category;
         delete newPhone.image;
+        delete newPhone.category;
         const formData = new FormData();
         formData.append('image', imageFile[0]);
         setLoading(true);
@@ -29,6 +31,7 @@ const AddProduct = () => {
                 const product = {
                     newPhone,
                     postTime,
+                    category,
                     phoneImage: results?.data?.display_url,
                     sellerName: user?.displayName,
                     sellerEmail: user?.email,
@@ -54,6 +57,7 @@ const AddProduct = () => {
                 toast.error(e.message)
             })
     }
+    
     return (
         <div className='h-[700px] flex justify-center items-center'>
             <div className='md:w-[600px] border rounded-lg p-8'>

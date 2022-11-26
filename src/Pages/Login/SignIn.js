@@ -23,10 +23,12 @@ const SignIn = () => {
     
     useEffect(()=> {
         if (results?.acknowledged) {
+            setLoading(false)
             navigate(from, {replace: true});
             toast.success('login your account');
         }
-    },[results, from])
+    },[results?.acknowledged])
+    // results?.acknowledged
     const handleSignIn = data => {
         setSignInError('');
         setLoading(true);
@@ -34,7 +36,6 @@ const SignIn = () => {
             .then(results => {
                 const user = results.user;
                 setSaveUser({name: user.displayName, email: user.email})
-                setLoading(false)
             })
             .catch(err => {
                 setSignInError(err.message)

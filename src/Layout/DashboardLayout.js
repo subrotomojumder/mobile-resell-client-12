@@ -24,7 +24,7 @@ const DashboardLayout = () => {
                 </div>
                 <div className="drawer-side bg-sky-50">
                     <label htmlFor="mobile-resell-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-72 text-base-content">
+                    <ul className="menu p-4 w-72 text-white lg:text-base-content">
                         { userRole === "Admin" ?
                             <>
                                 <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Sellers</li></Link>

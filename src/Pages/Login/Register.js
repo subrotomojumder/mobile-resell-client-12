@@ -112,8 +112,8 @@ const Register = () => {
                     </div>
                     <div className="form-control w-full max-w-xs mb-3">
                         <select {...register("role",)} className="select select-accent w-full">
-                            <option disabled selected >Select a user Role</option>
-                            <option>Sellers</option>
+                            <option disabled selected value='Sellers'>Select a user Role</option>
+                            <option value='Sellers'>Sellers</option>
                             <option value='Buyers'>Buyers</option>
                         </select>
 

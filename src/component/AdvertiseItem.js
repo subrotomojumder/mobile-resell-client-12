@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const AdvertiseItem = ({advertise}) => {
     
     const { newPhone, sellerEmail, sellerName, postTime, phoneImage } = advertise;
-    const { category, name, purchasePrice, sellingPrice, storage } = newPhone;
+    const { name, purchasePrice, sellingPrice, storage } = newPhone;
     return (
         <div>
             <Link
@@ -17,9 +17,9 @@ const AdvertiseItem = ({advertise}) => {
                         className="object-cover w-full lg:min-w-96 lg:h-80"
                         alt=""
                     />
-                    <div className="flex-grow">
+                    <div className="flex-grow bg-green-200">
                         <div className="p-5">
-                            <h6 className="mb-2 text-lg font-semibold leading-5">
+                            <h6 className="mb-2 text-xl font-semibold leading-5">
                                 {name}
                             </h6>
                             <h5>Resell price: {sellingPrice}tk</h5>

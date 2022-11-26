@@ -1,10 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { FaCartPlus, FaRegUser } from 'react-icons/fa';
 
 const Phone = ({ phone, setOrderPhone }) => {
-    const { newPhone, sellerEmail, sellerName, postTime, _id, phoneImage } = phone;
-    const { category, condition, description, location, name, phone: buyerPhone, purchasePrice, purchaseYear, sellingPrice, storage } = newPhone;
-
+    const { newPhone, sellerEmail, sellerName, postTime, phoneImage } = phone;
+    const { category, condition, description, location,  name, phone: buyerPhone, purchasePrice, purchaseYear, sellingPrice, storage } = newPhone;
+    const {data: verified = false, loading} = useQuery({
+        queryKey: ['verified', sellerEmail],
+        queryFn: ()=> fetch(`http://localhost:5000/users/verify?email=${sellerEmail}`).then(res => res.json())
+    })
     return (
         <div>
             <div className="card card-side border-2 rounded-none p-6 flex-col lg:flex-row my-5 items-center">
@@ -26,7 +30,7 @@ const Phone = ({ phone, setOrderPhone }) => {
                                 <FaRegUser className='text-red-400 text-3xl mx-auto' />
                                 <div className='flex items-center justify-center mx-auto mb-1'>
                                     <p className='font-bold'>Seller Verified</p>
-                                    <input type="checkbox" checked className="checkbox checkbox-info" />
+                                    <input type="checkbox" checked={verified} className="checkbox checkbox-info" />
                                 </div>
                                 <hr />
                                 <h3 className='mt-1'>Name: <span className='font-bold'>{sellerName}</span></h3>
@@ -39,12 +43,13 @@ const Phone = ({ phone, setOrderPhone }) => {
                     </div>
                     <p className='text-sm mt-10 lg:mt-6'><span className='font-semibold'>Description:</span> {description}</p>
                     <div className="mt-4 flex justify-center">
-                        <button
+                        <label
                             onClick={() => {
                                 setOrderPhone(phone)
                             }}
+                            htmlFor="order-modal"
                             className="btn btn-secondary w-48"
-                        >Order Now <FaCartPlus className='ml-2 text-xl hover:text-green-500'/></button>
+                        >Order Now <FaCartPlus className='ml-2 text-xl hover:text-green-500' /></label>
                     </div>
                 </div>
             </div>

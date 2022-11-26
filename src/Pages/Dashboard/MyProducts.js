@@ -69,7 +69,7 @@ const MyProducts = () => {
                     <tbody>
                         {
                             myProducts?.map(phone => <tr key={phone._id}>
-                                <td>{phone?.newPhone.category}</td>
+                                <td>{phone?.category}</td>
                                 <th>{phone?.newPhone.name}</th>
                                 <td>{phone?.newPhone.sellingPrice}tk</td>
                                 <td>{phone?.status ? <span>Sold</span> : <span>available</span>}</td>

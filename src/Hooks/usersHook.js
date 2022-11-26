@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 // save user and set jwt token
 const useSaveUser = (user) => {
-    const [results, setResults] = useState('');
+    const [results, setResults] = useState({});
     useEffect(() => {
         if (user?.email) {
             fetch(`http://localhost:5000/users/${user?.email}`,{
@@ -15,6 +15,7 @@ const useSaveUser = (user) => {
             })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 setResults(data.results)
                 localStorage.setItem('accessToken', data.token)
             })
