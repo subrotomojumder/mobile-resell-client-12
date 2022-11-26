@@ -3,6 +3,8 @@ import DashboardLayout from '../Layout/DashboardLayout'
 import Main from '../Layout/Main'
 import AllPhones from '../Pages/AllPhpone/AllPhones'
 import AddProduct from '../Pages/Dashboard/AddProduct'
+import Dashboard from '../Pages/Dashboard/Dashboard'
+import MyOrders from '../Pages/Dashboard/MyOrders'
 import MyProducts from '../Pages/Dashboard/MyProducts'
 import DisplayError from '../Pages/DisplayError'
 import Home from '../Pages/Home/Home'
@@ -29,8 +31,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'category/:name',
-                element: <PrivateRoute><AllPhones/></PrivateRoute>,
-                loader: async ({params})=> fetch(`http://localhost:5000/category/${params.name}`),
+                element: <PrivateRoute><AllPhones /></PrivateRoute>,
+                loader: async ({ params }) => fetch(`http://localhost:5000/category/${params.name}`),
             }
         ]
     },
@@ -38,16 +40,23 @@ export const router = createBrowserRouter([
         path: '/dashboard',
         element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         errorElement: <DisplayError />,
-        children:[
+        children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard />
+            },
             {
                 path: '/dashboard/add-products',
-                element: <AddProduct/>
+                element: <AddProduct />
             },
             {
                 path: '/dashboard/my-products',
-                element: <MyProducts/>
+                element: <MyProducts />
             },
-            
+            {
+                path: '/dashboard/my-orders',
+                element: <MyOrders />
+            }
         ]
     }
 ])

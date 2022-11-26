@@ -25,12 +25,6 @@ const DashboardLayout = () => {
                 <div className="drawer-side bg-sky-50">
                     <label htmlFor="mobile-resell-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-72 text-base-content">
-                        <div className='text-center mt-6 mr-4'>
-                            <img className='w-20 h-20 mx-auto rounded-full' src={user?.photoURL} alt="" />
-                            <p className=' font-bold'> {user?.displayName}</p>
-                            <p className=''>{user?.email}</p>
-                            <hr className='mx-8' />
-                        </div>
                         { userRole === "Admin" ?
                             <>
                                 <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Sellers</li></Link>

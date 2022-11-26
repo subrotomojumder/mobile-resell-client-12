@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+        <div className="pt-16 sm:max-w-xl md:max-w-full lg:max-w-screen md:px-24 lg:px-8 bg-gray-200">
             <div className="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="sm:col-span-2">
                     <a
@@ -20,10 +20,6 @@ const Footer = () => {
                         <p className="text-sm text-gray-800">
                             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                             accusantium doloremque laudantium, totam rem aperiam.
-                        </p>
-                        <p className="mt-4 text-sm text-gray-800">
-                            Eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                            beatae vitae dicta sunt explicabo.
                         </p>
                     </div>
                 </div>

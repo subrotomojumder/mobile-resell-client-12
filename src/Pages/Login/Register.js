@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { FaGooglePlusG} from 'react-icons/fa';
+import { FaGooglePlusG } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import useSaveUser from '../../Hooks/usersHook';
@@ -16,10 +17,12 @@ const Register = () => {
     const [results] = useSaveUser(saveUser);
     const navigate = useNavigate();
 
-    if (results.acknowledged) {
-        toast.success('Create your account')
-        navigate('/');
-    }
+    useEffect(() => {
+        if (results.acknowledged) {
+            toast.success('Create your account')
+            navigate('/');
+        }
+    }, [results, navigate])
     const handleRegister = data => {
         const email = data.email;
         const password = data.password;
@@ -61,7 +64,7 @@ const Register = () => {
         googleLogin()
             .then(results => {
                 const user = results.user;
-                setSaveUser({name: user.displayName, email: user.email, photo: user.photoURL})
+                setSaveUser({ name: user.displayName, email: user.email, photo: user.photoURL })
                 setLoading(false)
             })
             .catch(err => {
@@ -69,7 +72,7 @@ const Register = () => {
                 setLoading(false)
             })
     }
-    
+
     return (
         <div className='h-[700px] flex justify-center items-center'>
             <div className='w-96 border rounded-lg p-8 relative'>
@@ -83,16 +86,15 @@ const Register = () => {
                         {errors.name && <small className='text-red-500 text-sm'>{errors.name?.message}</small>}
                     </div>
                     <div className="form-control text-center w-20 absolute top-1 right-2">
-                        <label htmlFor='image' className="label"><span className="label-text bg-sky-100 w-16 h-20 rounded-lg text-blue-400 font-semibold border-2 border-warning py-4 hover:text-warning">Image Upload</span></label>
+                        <label htmlFor='image' className="label"><span className="label-text bg-sky-100 w-16 h-20 rounded-lg text-blue-400 font-semibold border-2 border-warning py-4 hover:text-warning">Photo Upload</span></label>
                         <input {...register("image", {
-                            required: "required"
+                            required: "Error photo is required"
                         })}
                             type="file"
                             id='image'
                             // accept='image/*'
                             placeholder="Photo here" className="hidden"
                         />
-                        {errors.image && <small className='text-red-500 text-sm mt-[-10px] mr-2'>{errors.image?.message}</small>}
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"><span className="label-text">Email</span></label>
@@ -114,10 +116,12 @@ const Register = () => {
                             <option>Sellers</option>
                             <option value='Buyers'>Buyers</option>
                         </select>
+
+                        {errors.image && <small className='text-red-500 text-sm mr-2'>{errors.image?.message}</small>}
                         {registerError && <small>{registerError}</small>}
                     </div>
                     <div className='text-center'>
-                        <button className='btn btn-circle w-full' type="submit" >{loading ?<Spinner/>: 'Register'}</button>
+                        <button className='btn btn-circle w-full' type="submit" >{loading ? <Spinner /> : 'Register'}</button>
                     </div>
                 </form>
                 <p className='text-sm text-center mt-1'>Already have an account <Link to='/sign-in' className='text-blue-500 hover:link'>Sign-In</Link></p>
