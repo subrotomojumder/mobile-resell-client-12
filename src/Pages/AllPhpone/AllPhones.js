@@ -29,7 +29,7 @@ const AllPhones = () => {
             clientNumber,
             clientLocation
         }
-        fetch(`http://localhost:5000/orders?phoneId=${orderPhone?._id}`, {
+        fetch(`http://localhost:5000/orders?phoneId=${orderPhone?._id}&clientEmail=${clientEmail}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -41,10 +41,13 @@ const AllPhones = () => {
                 if (data.acknowledged) {
                     toast.success('confirm your order!!')
                     setOrderPhone(null)
+                    event.refresh();
+                }
+                else {
+                    toast.error(data.message)
                 }
             })
     }
-
     if (navigation.status === "loading") {
         return <Spinner></Spinner>
     }
@@ -52,7 +55,7 @@ const AllPhones = () => {
     return (
         <div>
             <div>
-                {phones.length === 0? <div className='h-screen flex items-center justify-center'><h5 className='text-4xl font-thin text-center'>No available second hand <br /> resell phone !!</h5></div>
+                {!phones.length ? <div className='h-screen flex items-center justify-center'><h5 className='text-4xl font-thin text-center'>No available second hand <br /> resell phone !!</h5></div>
                     :
                     phones?.map(phone => <Phone
                         key={phone._id}

@@ -61,7 +61,7 @@ const AllSellers = () => {
                                     <span className='font-semibold bg-green-100 rounded-md p-1'>Seller</span>
                                 </td>
                                 <td>
-                                    {!user.verified ? <button className='btn btn-sm btn-outline' onClick={() => handleSellerVerify(user._id)}>Approve</button> : <span className='ml-2 font-semibold'>Verified</span>}
+                                    {!user.verified ? <button className='btn btn-sm btn-outline bg-green-300' onClick={() => handleSellerVerify(user._id)}>Approve</button> : <span className='ml-2 font-semibold text-orange-400'>Verified</span>}
                                 </td>
                                 <th>
                                     <button className="btn btn-ghost btn-xs">delete</button>

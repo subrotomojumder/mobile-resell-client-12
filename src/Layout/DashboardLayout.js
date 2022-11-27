@@ -4,11 +4,10 @@ import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import useUserRole from '../Hooks/checkUserRole';
 import Navbar from '../Pages/Shared/Navbar';
-import Spinner from '../Pages/Shared/Spinner';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
-    const [userRole, isLoading] = useUserRole(user?.email);
+    const [userRole] = useUserRole(user?.email);
     return (
         <div>
             <Navbar>
@@ -25,7 +24,7 @@ const DashboardLayout = () => {
                 <div className="drawer-side bg-sky-50">
                     <label htmlFor="mobile-resell-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-72 text-white lg:text-base-content">
-                        { userRole === "Admin" ?
+                        {userRole === "Admin" ?
                             <>
                                 <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Sellers</li></Link>
                                 <Link to='/dashboard/all-buyers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Buyers</li></Link>
@@ -36,8 +35,10 @@ const DashboardLayout = () => {
                                     <Link to='/dashboard/add-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>Add A product</li></Link>
                                     <Link to='/dashboard/my-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My Products</li></Link>
                                 </>
-                                :
-                                <Link to='/dashboard/my-orders' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My orders</li></Link>
+                                : <>
+                                    <Link to='/dashboard/my-orders' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My orders</li></Link>
+                                    <Link to='/dashboard/my-wishlist' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My Wishlist</li></Link>
+                                </>
                         }
                     </ul>
 

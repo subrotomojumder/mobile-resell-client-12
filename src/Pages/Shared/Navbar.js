@@ -26,7 +26,7 @@ const Navbar = ({children}) => {
                         {naveItems}
                     </ul>
                 </div>
-                <Link className="ml-2 text-xl  normal-case font-bold text-primary">Mobile Resell Shope</Link>
+                <Link className="ml-2 text-xl  normal-case font-bold font-serif text-primary">Mobile Resell Shope</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">

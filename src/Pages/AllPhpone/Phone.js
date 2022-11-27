@@ -3,11 +3,11 @@ import React from 'react';
 import { FaCartPlus, FaRegUser } from 'react-icons/fa';
 
 const Phone = ({ phone, setOrderPhone }) => {
-    const { newPhone, sellerEmail, sellerName, postTime, phoneImage } = phone;
-    const { category, condition, description, location,  name, phone: buyerPhone, purchasePrice, purchaseYear, sellingPrice, storage } = newPhone;
-    const {data: verified = false, loading} = useQuery({
+    const { newPhone, category, sellerEmail, sellerName, postTime, phoneImage } = phone;
+    const { condition, description, location, name, phone: buyerPhone, purchasePrice, purchaseYear, sellingPrice, storage } = newPhone;
+    const { data: verified = false, loading } = useQuery({
         queryKey: ['verified', sellerEmail],
-        queryFn: ()=> fetch(`http://localhost:5000/users/verify?email=${sellerEmail}`).then(res => res.json())
+        queryFn: () => fetch(`http://localhost:5000/users/verify?email=${sellerEmail}`).then(res => res.json())
     })
     return (
         <div>
@@ -15,15 +15,27 @@ const Phone = ({ phone, setOrderPhone }) => {
                 <figure><img src={phoneImage} className='h-[400px] overflow-hidden duration-300 transform hover:-translate-x-4 hover:scale-110' alt="Movie" /></figure>
                 <div className="flex-1">
                     <div className='lg:flex justify-between '>
-                        <div className='text-center lg:text-left'>
+                        <div className='text-center lg:text-left mb-10 lg:mb-0'>
                             <h2 className="text-lg font-mono text-gray-500 animate-pulse">{category}</h2>
                             <h4 className='text-3xl text-sky-600 mb-3'>{name}</h4>
-                            <h4 className='text-lg'>Condition: {condition}!!</h4>
-                            <h5 className='text-xl'>Storage: <span className='font-semibold'>{storage}</span></h5>
-                            <h5 className='text-xl'>Resell price: <span className='font-semibold text-orange-400'>{sellingPrice}</span>tk</h5>
-                            <h5>Purchase year: {purchaseYear}</h5>
-                            <h5 className='text-xl mb-2'>Original price: <span className='font-semibold'>{purchasePrice}</span>tk</h5>
-
+                            <table className='border-2 border-black text-lg mx-auto w-96'>
+                                <tr className=''>
+                                    <td className='border-2 px-2'>Storage:</td>
+                                    <th className='border-2 px-2'><span className='font-semibold'>{storage}</span></th>
+                                </tr>
+                                <tr>
+                                    <td className='border-2 px-2'>Resell price:</td>
+                                    <td className='border-2 px-2'><span className='font-semibold text-orange-400'>{sellingPrice}</span>tk</td>
+                                </tr>
+                                <tr>
+                                    <td className='border-2 px-2'>Original price: </td>
+                                    <td className='border-2 px-2'> <span className='font-semibold'>{purchasePrice}</span>tk</td>
+                                </tr>
+                                <tr>
+                                    <td className='border-2 px-2'>Purchase year: </td>
+                                    <td className='border-2 px-2'>{purchaseYear}</td>
+                                </tr>
+                            </table>
                         </div>
                         <div className='lg:mr-5 text-center max-w-40'>
                             <div>
@@ -41,8 +53,8 @@ const Phone = ({ phone, setOrderPhone }) => {
                             </div>
                         </div>
                     </div>
-                    <p className='text-sm mt-10 lg:mt-6'><span className='font-semibold'>Description:</span> {description}</p>
-                    <div className="mt-4 flex justify-center">
+                    <p className='text-sm mt-10 lg:mt-3'><span className='font-semibold'>Description:</span> {description}</p>
+                    <div className="mt-8 flex justify-center">
                         <label
                             onClick={() => {
                                 setOrderPhone(phone)
