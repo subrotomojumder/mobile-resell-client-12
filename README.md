@@ -20,3 +20,7 @@ server site code link: [https://github.com/programming-hero-web-course-4/b612-us
 - mongodb database crud operation
 - json web token nodejs
 - Stripe payment get way
+
+### Admin 
+#### email:  antora@bb.com
+#### password: 123456
