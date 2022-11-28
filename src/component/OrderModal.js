@@ -20,7 +20,7 @@ const OrderModal = ({ orderPhone, setOrderPhone, handlePhoneOrder }) => {
                     <div className="form-control mb-2">
                         <label className="input-group">
                             <span className='w-24'>Price:</span>
-                            <input name='price' readOnly type="text" defaultValue={orderPhone?.newPhone?.sellingPrice +'tk'} className="input input-bordered w-full font-semibold" />
+                            <input name='price' readOnly type="text" defaultValue={orderPhone?.newPhone?.sellingPrice} className="input input-bordered w-full font-semibold" />
                         </label>
                     </div>
                     <div className="form-control mb-2">

@@ -8,7 +8,7 @@ const PhoneCategory = () => {
     const [clicked, setClicked] = useState(false);
     const { data: categories = [], loading} = useQuery({
         queryKey: ['category'],
-        queryFn: () => fetch('http://localhost:5000/category').then(res => res.json())
+        queryFn: () => fetch(`${process.env.REACT_APP_SERVER_url}/category`).then(res => res.json())
     })
     if (loading) {
         return <Spinner></Spinner>

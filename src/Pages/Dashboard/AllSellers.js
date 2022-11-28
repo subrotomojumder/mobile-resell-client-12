@@ -8,7 +8,7 @@ const AllSellers = () => {
     const [seller, setSeller] = useState(null);
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
-        queryFn: () => fetch('http://localhost:5000/users/sellers', {
+        queryFn: () => fetch(`${process.env.REACT_APP_SERVER_url}/users/sellers`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -16,7 +16,7 @@ const AllSellers = () => {
     })
 
     const handleSellerVerify = id => {
-        fetch(`http://localhost:5000/users/sellers/${id}`, {
+        fetch(`${process.env.REACT_APP_SERVER_url}/users/sellers/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -32,7 +32,7 @@ const AllSellers = () => {
             })
     }
     const handleDeleteBuyer = seller => {
-        fetch(`http://localhost:5000/users/${seller._id}`, {
+        fetch(`${process.env.REACT_APP_SERVER_url}/users/${seller._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

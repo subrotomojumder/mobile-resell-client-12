@@ -36,7 +36,7 @@ const AddProduct = () => {
                     sellerName: user?.displayName,
                     sellerEmail: user?.email,
                 }
-                fetch('http://localhost:5000/products', {
+                fetch(`${process.env.REACT_APP_SERVER_url}/products`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',

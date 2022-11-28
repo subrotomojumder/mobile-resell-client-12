@@ -5,7 +5,7 @@ const useUserRole = email => {
     const [userRole, setUserRole] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-            fetch(`http://localhost:5000/users/role/${email}`, {
+            fetch(`${process.env.REACT_APP_SERVER_url}/users/role/${email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

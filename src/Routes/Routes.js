@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import DashboardLayout from '../Layout/DashboardLayout'
 import Main from '../Layout/Main'
 import AllPhones from '../Pages/AllPhpone/AllPhones'
+import Blog from '../Pages/Blog'
 import AddProduct from '../Pages/Dashboard/AddProduct'
 import AllBuyers from '../Pages/Dashboard/AllBuyers'
 import AllSellers from '../Pages/Dashboard/AllSellers'
@@ -12,6 +13,7 @@ import DisplayError from '../Pages/DisplayError'
 import Home from '../Pages/Home/Home'
 import Register from '../Pages/Login/Register'
 import SignIn from '../Pages/Login/SignIn'
+import Payment from '../Pages/Payment'
 import AdminRoute from './AdminRoute'
 import PrivateRoute from './PrivateRoute'
 import SellerRoute from './SellersRoute'
@@ -34,9 +36,13 @@ export const router = createBrowserRouter([
                 element: <SignIn />
             },
             {
-                path: 'category/:name',
+                path: '/category/:name',
                 element: <PrivateRoute><AllPhones /></PrivateRoute>,
-                loader: async ({ params }) => fetch(`http://localhost:5000/category/${params.name}`),
+                loader: async ({ params }) => fetch(`${process.env.REACT_APP_SERVER_url}/category/${params.name}`),
+            },
+            {
+                path: '/blog',
+                element: <Blog />
             }
         ]
     },
@@ -68,7 +74,12 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/all-buyers',
                 element: <AdminRoute><AllBuyers /></AdminRoute>
-            }
+            },
+            {
+                path: '/dashboard/payment/:id',
+                element: <Payment/>,
+                loader: ({params})=> fetch(`${process.env.REACT_APP_SERVER_url}/orders/${params.id}`)
+            },
         ]
     }
 ])

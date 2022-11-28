@@ -8,11 +8,11 @@ const Phone = ({ phone, setOrderPhone }) => {
     const { newPhone, category, sellerEmail, sellerName, postTime, phoneImage } = phone;
     const { condition, description, location, name, phone: buyerPhone, purchasePrice, purchaseYear, sellingPrice, storage } = newPhone;
     useEffect(() => {
-        fetch(`http://localhost:5000/test/verify?seller=${sellerEmail}`)
-        .then(res => res.json())
-        .then(data => {
-            setVerified(data)
-        })
+        fetch(`${process.env.REACT_APP_SERVER_url}/test/verify?seller=${sellerEmail}`)
+            .then(res => res.json())
+            .then(data => {
+                setVerified(data)
+            })
     }, [sellerEmail])
     return (
         <div>
@@ -63,14 +63,19 @@ const Phone = ({ phone, setOrderPhone }) => {
                         </div>
                     </div>
                     <p className='text-sm mt-10 lg:mt-3'><span className='font-semibold'>Description:</span> {description}</p>
-                    <div className="mt-8 flex justify-center">
-                        <label
-                            onClick={() => {
-                                setOrderPhone(phone)
-                            }}
-                            htmlFor="order-modal"
-                            className="btn btn-secondary w-48"
-                        >Order Now <FaCartPlus className='ml-2 text-xl hover:text-green-500' /></label>
+                    <div className="mt-6 flex justify-center">
+                        <div>
+                            <label
+                                onClick={() => {
+                                    setOrderPhone(phone)
+                                }}
+                                htmlFor="order-modal"
+                                className="btn btn-secondary w-48"
+                            >Order Now <FaCartPlus className='ml-2 text-xl hover:text-green-500' /></label>
+                            <div className='text-center mt-2'>
+                                <button className='btn btn-sm btn-ghost link' title='If there is any problem can report'>Add A Report</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

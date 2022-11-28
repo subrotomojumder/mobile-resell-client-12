@@ -6,7 +6,7 @@ const useSaveUser = (user) => {
     const [results, setResults] = useState({});
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/users/${user?.email}`,{
+            fetch(`${process.env.REACT_APP_SERVER_url}/users/${user?.email}`,{
                 method: 'PUT',
                 headers:{
                     'content-type':'application/json'

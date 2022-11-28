@@ -7,9 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
-    const { data: myProducts = [],refetch } = useQuery({
+    const { data: myProducts = [], refetch } = useQuery({
         queryKey: ['myProducts'],
-        queryFn: () => fetch(`http://localhost:5000/products/${user?.email}`, {
+        queryFn: () => fetch(`${process.env.REACT_APP_SERVER_url}/products/${user?.email}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -17,7 +17,7 @@ const MyProducts = () => {
     });
 
 const handleAddAdvertise = id => {
-    fetch(`http://localhost:5000/advertised/${id}`, {
+    fetch(`${process.env.REACT_APP_SERVER_url}/advertised/${id}`, {
         method: 'PUT',
         headers: {
             'content-type': 'application/json',
@@ -33,7 +33,7 @@ const handleAddAdvertise = id => {
         })
 }
 const handleProductDelete = id => {
-    fetch(`http://localhost:5000/products/${id}`, {
+    fetch(`${process.env.REACT_APP_SERVER_url}/products/${id}`, {
         method: 'DELETE',
         headers: {
             authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -73,7 +73,7 @@ return (
                             <td>{phone?.category}</td>
                             <th>{phone?.newPhone.name}</th>
                             <td>{phone?.newPhone.sellingPrice}tk</td>
-                            <td>{phone?.status ? <span>Sold</span> : <span>available</span>}</td>
+                            <td>{phone?.paid ? <span className='font-bold ml-2 bg-green-200 p-2 rounded-sm'>Sold</span> : <span>available</span>}</td>
                             <td> <button onClick={() => handleProductDelete(phone._id)}><FaTrash className='text-red-400 text-xl hover:text-red-600 ml-3' /></button></td>
                             <td>{(!phone?.advertise && phone?.status !== 'sold') && <button onClick={() => handleAddAdvertise(phone?._id)} className='btn btn-sm btn-ghost bg-slate-100'>advertise</button>}</td>
                         </tr>)

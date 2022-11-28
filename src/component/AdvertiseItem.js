@@ -1,20 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
 const AdvertiseItem = ({advertise}) => {
     
     const { newPhone, sellerEmail, sellerName, postTime, phoneImage } = advertise;
     const { name, purchasePrice, sellingPrice, storage } = newPhone;
     return (
-        <div>
-            <Link
+        <div className=''>
+            <div
                 aria-label="View Item"
-                className="inline-block overflow-hidden duration-300 transform bg-white shadow-sm hover:-translate-y-4  border-2 border-blue-600 rounded-2xl"
+                className=" overflow-hidden duration-300 transform bg-white shadow-sm hover:-translate-y-4  border-2 border-blue-600 rounded-2xl"
             >
                 <div className="flex flex-col h-full">
                     <img
                         src={phoneImage}
-                        className="object-cover w-full lg:min-w-96 lg:h-80"
+                        className="object-cover w-full lg:h-[350px]"
                         alt=""
                     />
                     <div className="flex-grow bg-green-200">
@@ -31,7 +29,7 @@ const AdvertiseItem = ({advertise}) => {
                         </div>
                     </div>
                 </div>
-            </Link>
+            </div>
         </div>
     );
 };

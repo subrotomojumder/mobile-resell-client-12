@@ -26,18 +26,18 @@ const DashboardLayout = () => {
                     <ul className="menu p-4 w-72 text-white lg:text-base-content">
                         { isLoading ? <></> : userRole === "Admin" ?
                             <>
-                                <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Sellers</li></Link>
-                                <Link to='/dashboard/all-buyers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>All Buyers</li></Link>
-                                <Link to='/dashboard/reported-items' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>Reported Items</li></Link>
+                                <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>All Sellers</li></Link>
+                                <Link to='/dashboard/all-buyers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>All Buyers</li></Link>
+                                <Link to='/dashboard/reported-items' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>Reported Items</li></Link>
                             </>
                             : userRole === "Sellers" ?
                                 <>
-                                    <Link to='/dashboard/add-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>Add A product</li></Link>
-                                    <Link to='/dashboard/my-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My Products</li></Link>
+                                    <Link to='/dashboard/add-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>Add A product</li></Link>
+                                    <Link to='/dashboard/my-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>My Products</li></Link>
                                 </>
                                 : <>
-                                    <Link to='/dashboard/my-orders' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My orders</li></Link>
-                                    <Link to='/dashboard/my-wishlist' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3'><li>My Wishlist</li></Link>
+                                    <Link to='/dashboard/my-orders' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>My orders</li></Link>
+                                    <Link className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>My Wishlist</li></Link>
                                 </>
                         }
                     </ul>

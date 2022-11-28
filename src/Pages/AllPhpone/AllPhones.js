@@ -30,7 +30,7 @@ const AllPhones = () => {
             clientNumber,
             clientLocation
         }
-        fetch(`http://localhost:5000/orders?phoneId=${orderPhone?._id}&clientEmail=${clientEmail}`, {
+        fetch(`${process.env.REACT_APP_SERVER_url}/orders?phoneId=${orderPhone?._id}&clientEmail=${clientEmail}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -49,7 +49,7 @@ const AllPhones = () => {
                 }
             })
     }
-    if (navigation.status === "loading") {
+    if (navigation.state === "loading") {
         return <Spinner></Spinner>
     }
 

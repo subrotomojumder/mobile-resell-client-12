@@ -27,10 +27,6 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return signInWithPopup(auth, googleProvider);
     }
-    // const passwordReset = (email) => {
-    //     setLoading(true);
-    //     return sendPasswordResetEmail(auth, email);
-    // }
     const logOut = () => {
         setLoading(true);
         return signOut(auth);

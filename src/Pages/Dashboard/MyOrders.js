@@ -3,15 +3,16 @@ import React, { useContext } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import GenericConfirmToast from '../../component/GenericConfirmToast';
 import { AuthContext } from '../../context/AuthProvider';
 
 const MyOrders = () => {
     const [order, setOrder] = useState(null);
     const { user } = useContext(AuthContext);
-    const { data: orders = [], loading, refetch } = useQuery({
+    const { data: orders = [],  refetch } = useQuery({
         queryKey: ['orders', user?.email],
-        queryFn: () => fetch(`http://localhost:5000/orders`, {
+        queryFn: () => fetch(`${process.env.REACT_APP_SERVER_url}/orders`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -21,7 +22,7 @@ const MyOrders = () => {
         setOrder(null);
     }
     const handleOrder = order => {
-        fetch(`http://localhost:5000/orders/${order._id}`,{
+        fetch(`${process.env.REACT_APP_SERVER_url}/orders/${order._id}`,{
             method: "DELETE",
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -63,9 +64,9 @@ const MyOrders = () => {
                                 Model:<span className='text-blue-500 text-lg'> {order.phoneName}</span> <br />
                                 Phone ID: {order.phoneId}
                             </th>
-                            <td>{order.price}</td>
+                            <td>{order.price} tk</td>
                             <th className='font-semibold'>
-                                {order.paid ? <span>Paid</span> : <button className='btn btn-ghost bg-green-300 '>Pay</button>}
+                                {order.paid ? <span className='text-orange-500 font-bold ml-4'>Paid</span> : <Link to={`/dashboard/payment/${order._id}`}><button  className='btn btn-ghost bg-green-300 '>Pay</button></Link>}
                             </th>
                             <th>
                                 <label htmlFor='generic-confirm-toast' onClick={() => setOrder(order)} className="btn btn-ghost"><FaTrash className='text-lg text-red-500' /></label>

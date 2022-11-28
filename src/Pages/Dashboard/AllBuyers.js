@@ -9,7 +9,7 @@ const AllBuyers = () => {
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/buyers', {
+            const res = await fetch(`${process.env.REACT_APP_SERVER_url}/users/buyers`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -19,7 +19,7 @@ const AllBuyers = () => {
         }
     })
     const handleDeleteBuyer = buyer => {
-        fetch(`http://localhost:5000/users/${buyer._id}`, {
+        fetch(`${process.env.REACT_APP_SERVER_url}/users/${buyer._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
