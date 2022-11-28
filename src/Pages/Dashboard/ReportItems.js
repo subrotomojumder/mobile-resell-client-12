@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaReply } from 'react-icons/fa';
+import GenericConfirmToast from '../../component/GenericConfirmToast';
 
 const ReportItems = () => {
-    const { data: reports = [], } = useQuery({
+    const [report, setReport] = useState(null);
+    const { data: reports = [], refetch } = useQuery({
         queryKey: ['reports'],
         queryFn: () => fetch(`${process.env.REACT_APP_SERVER_url}/reports`, {
             headers: {
@@ -12,12 +15,31 @@ const ReportItems = () => {
             }
         }).then(res => res.json())
     })
+    const handleDeleteReportPhone = report => {
+        fetch(`${process.env.REACT_APP_SERVER_url}/reports-item/?phoneId=${report?.phoneId}&reportId=${report._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount) {
+                    refetch();
+                    toast.success(`${report.phoneName} delete successful !!`)
+                }
+            })
+    }
+    const cancelToast = () => {
+        setReport(null);
+    }
+
     if (!reports.length) {
         return <div className='h-screen flex items-center justify-center'><p className='text-4xl mb-10'>Report list Empty !</p></div>
     }
     return (
         <div>
-            <h2 className='text-3xl my-2 text-center'>All Sellers</h2>
+            <h2 className='text-3xl my-2 text-center'>Reported phones</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
@@ -26,7 +48,7 @@ const ReportItems = () => {
                             <th>Reporter</th>
                             <th><span className='ml-2'>Phone</span></th>
                             <th><span className='ml-4'>Report-text</span></th>
-                            <th>Delete</th>
+                            <th>Delete phone</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,13 +73,24 @@ const ReportItems = () => {
                                     <span className='text-warning text-lg'><FaReply className='inline' /> {report.reportText}</span>
                                 </td>
                                 <th>
-                                    <label htmlFor='generic-confirm-toast' className="btn btn-danger btn-xs">delete</label>
+                                    <label onClick={() => setReport(report)} htmlFor='generic-confirm-toast' className="btn btn-danger btn-xs ml-4">delete</label>
                                 </th>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                report &&
+                <GenericConfirmToast
+                    cancelToast={cancelToast}
+                    toastAction={handleDeleteReportPhone}
+                    toastData={report}
+                    toastHeader={report.phoneName}
+                    des={report.phoneId}
+                    value={`Seller : ${report.seller}`}
+                ></GenericConfirmToast>
+            }
         </div>
     );
 };
