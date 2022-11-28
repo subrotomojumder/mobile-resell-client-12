@@ -51,13 +51,17 @@ const AddProduct = () => {
                             setLoading(false);
                             navigate('/dashboard/my-products');
                         }
+                        else {
+                            setLoading(false);
+                            toast.error(data.message)
+                        }
                     })
             }).catch(e => {
                 setLoading(false)
                 toast.error(e.message)
             })
     }
-    
+
     return (
         <div className='h-[700px] flex justify-center items-center'>
             <div className='md:w-[600px] border rounded-lg p-8'>

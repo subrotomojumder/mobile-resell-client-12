@@ -1,32 +1,41 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
+import GenericConfirmToast from '../../component/GenericConfirmToast';
 
 const AllBuyers = () => {
+    const [buyer, setBuyer] = useState(null);
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/buyers');
+            const res = await fetch('http://localhost:5000/users/buyers', {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
     })
-    // const handleSellerVerify = id => {
-    //     fetch(`http://localhost:5000/users/sellers/${id}`, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             'content-type': 'application/json',
-    //             authorization: `bearer ${localStorage.getItem('accessToken')}`
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.modifiedCount > 0) {
-    //                 refetch();
-    //                 toast.success('Seller verify successful !!')
-    //             }
-    //         })
-    // }
+    const handleDeleteBuyer = buyer => {
+        fetch(`http://localhost:5000/users/${buyer._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success('Buyer delete successful !!')
+                }
+            })
+    }
+    const cancelToast = () => {
+        setBuyer(null);
+    }
     return (
         <div>
             <h2 className='text-3xl my-2 text-center'>All Sellers</h2>
@@ -61,14 +70,26 @@ const AllBuyers = () => {
                                         <div className=" text-lg ml-1">{user.name}</div>
                                     </div>
                                 </td>
-                               
+
                                 <th>
-                                    <button className="btn btn-danger btn-xs">delete</button>
+                                    <label htmlFor='generic-confirm-toast' onClick={(() => setBuyer(user))} className="btn btn-danger btn-xs">delete</label>
                                 </th>
                             </tr>)
                         }
                     </tbody>
                 </table>
+                {
+                    buyer &&
+                    <GenericConfirmToast
+                        cancelToast={cancelToast}
+                        toastAction={handleDeleteBuyer}
+                        toastData={buyer}
+                        toastHeader={buyer.name}
+                        des={buyer._id}
+                        value={`Email: ${buyer.email}`}
+                    ></GenericConfirmToast>
+                    
+                }
             </div>
         </div >
     );

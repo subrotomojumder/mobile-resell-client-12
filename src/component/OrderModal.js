@@ -1,6 +1,9 @@
 import React from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthProvider';
 
 const OrderModal = ({ orderPhone, setOrderPhone, handlePhoneOrder }) => {
+    const {user} = useContext(AuthContext);
     return (
         <div>
             <input type="checkbox" id="order-modal" className="modal-toggle" />
@@ -23,13 +26,13 @@ const OrderModal = ({ orderPhone, setOrderPhone, handlePhoneOrder }) => {
                     <div className="form-control mb-2">
                         <label className="input-group">
                             <span className='w-24'>Buyer:</span>
-                            <input name='clientName' readOnly type="text" defaultValue={orderPhone?.sellerName} className="input input-bordered w-full font-semibold" />
+                            <input name='clientName' readOnly type="text" defaultValue={user?.displayName} className="input input-bordered w-full font-semibold" />
                         </label>
                     </div>
                     <div className="form-control mb-2">
                         <label className="input-group">
                             <span className='w-24'>Email:</span>
-                            <input name='clientEmail' readOnly type="text" defaultValue={orderPhone?.sellerEmail} className="input input-bordered w-full font-semibold" />
+                            <input name='clientEmail' readOnly type="text" defaultValue={user?.email} className="input input-bordered w-full font-semibold" />
                         </label>
                     </div>
                     <div className="form-control mb-2">

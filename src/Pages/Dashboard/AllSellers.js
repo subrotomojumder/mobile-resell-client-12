@@ -1,16 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
+import GenericConfirmToast from '../../component/GenericConfirmToast';
 
 const AllSellers = () => {
-    const { data: users = [], refetch } = useQuery({
-        queryKey: ['user'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/sellers');
-            const data = await res.json();
-            return data;
-        }
+    const [seller, setSeller] = useState(null);
+    const { data: sellers = [], refetch } = useQuery({
+        queryKey: ['sellers'],
+        queryFn: () => fetch('http://localhost:5000/users/sellers', {
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res => res.json())
     })
+
     const handleSellerVerify = id => {
         fetch(`http://localhost:5000/users/sellers/${id}`, {
             method: 'PATCH',
@@ -22,10 +26,28 @@ const AllSellers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    refetch();
+                    refetch()
                     toast.success('Seller verify successful !!')
                 }
             })
+    }
+    const handleDeleteBuyer = seller => {
+        fetch(`http://localhost:5000/users/${seller._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success('seller delete successful !!')
+                }
+            })
+    }
+    const cancelToast = () => {
+        setSeller(null);
     }
     return (
         <div>
@@ -43,7 +65,7 @@ const AllSellers = () => {
                     </thead>
                     <tbody>
                         {
-                            users?.map(user => <tr key={user._id}>
+                            sellers?.map(user => <tr key={user._id}>
                                 <td>
                                     <div className="avatar">
                                         <div className="mask mask-squircle w-12 h-12">
@@ -64,13 +86,24 @@ const AllSellers = () => {
                                     {!user.verified ? <button className='btn btn-sm btn-outline bg-green-300' onClick={() => handleSellerVerify(user._id)}>Approve</button> : <span className='ml-2 font-semibold text-orange-400'>Verified</span>}
                                 </td>
                                 <th>
-                                    <button className="btn btn-ghost btn-xs">delete</button>
+                                    <label onClick={() => setSeller(user)} htmlFor='generic-confirm-toast' className="btn btn-ghost btn-xs">delete</label>
                                 </th>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                seller &&
+                <GenericConfirmToast
+                        cancelToast={cancelToast}
+                        toastAction={handleDeleteBuyer}
+                        toastData={seller}
+                        toastHeader={seller.name}
+                        des={seller._id}
+                        value={`Email: ${seller.email}`}
+                    ></GenericConfirmToast>
+            }
         </div >
     );
 };

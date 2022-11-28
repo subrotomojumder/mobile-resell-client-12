@@ -24,6 +24,7 @@ const AllPhones = () => {
             phoneName,
             clientName,
             phoneId: orderPhone._id,
+            category: orderPhone.category,
             price,
             clientEmail,
             clientNumber,
@@ -32,7 +33,8 @@ const AllPhones = () => {
         fetch(`http://localhost:5000/orders?phoneId=${orderPhone?._id}&clientEmail=${clientEmail}`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('accessToken')}` 
             },
             body: JSON.stringify(order)
         })
@@ -41,7 +43,6 @@ const AllPhones = () => {
                 if (data.acknowledged) {
                     toast.success('confirm your order!!')
                     setOrderPhone(null)
-                    event.refresh();
                 }
                 else {
                     toast.error(data.message)
