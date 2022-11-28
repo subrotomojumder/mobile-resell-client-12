@@ -2,9 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { FaCartPlus, FaRegUser } from 'react-icons/fa';
+import ReportedForm from '../../component/ReportedForm';
 
 const Phone = ({ phone, setOrderPhone }) => {
     const [verified, setVerified] = useState('');
+    const [reportItem, setReportItem] = useState(null);
     const { newPhone, category, sellerEmail, sellerName, postTime, phoneImage } = phone;
     const { condition, description, location, name, phone: buyerPhone, purchasePrice, purchaseYear, sellingPrice, storage } = newPhone;
     useEffect(() => {
@@ -63,19 +65,30 @@ const Phone = ({ phone, setOrderPhone }) => {
                         </div>
                     </div>
                     <p className='text-sm mt-10 lg:mt-3'><span className='font-semibold'>Description:</span> {description}</p>
-                    <div className="mt-6 flex justify-center">
-                        <div>
-                            <label
-                                onClick={() => {
-                                    setOrderPhone(phone)
-                                }}
-                                htmlFor="order-modal"
-                                className="btn btn-secondary w-48"
-                            >Order Now <FaCartPlus className='ml-2 text-xl hover:text-green-500' /></label>
-                            <div className='text-center mt-2'>
-                                <button className='btn btn-sm btn-ghost link' title='If there is any problem can report'>Add A Report</button>
-                            </div>
+                    <div className="mt-4 lg:flex justify-center items-center gap-8">
+                        <div className='text-center mb-3 lg:mb-0'>
+                            {
+                                reportItem ?
+                                    <ReportedForm
+                                        reportItem={reportItem}
+                                        setReportItem={setReportItem}
+                                    >
+                                    </ReportedForm>
+                                    :
+                                    <button onClick={() => { setReportItem(phone) }} className='btn btn-sm btn-ghost link' title='If there is any problem can report'>Add A Report</button>
+                            }
                         </div>
+                       <div className='text-center'>
+                       <label
+                            onClick={() => {
+                                setOrderPhone(phone)
+                            }}
+                            htmlFor="order-modal"
+                            className="btn btn-secondary w-60"
+                        >
+                            Order Now <FaCartPlus className='ml-2 text-xl hover:text-green-500' />
+                        </label>
+                       </div>
                     </div>
                 </div>
             </div>

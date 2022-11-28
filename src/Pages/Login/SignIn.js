@@ -9,7 +9,6 @@ import useSaveUser from '../../Hooks/usersHook';
 import Spinner from '../Shared/Spinner';
 
 const SignIn = () => {
-    const {user }= useContext(AuthContext);
     const [signInError, setSignInError] = useState('');
     const { signInFunc, googleLogin } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -73,7 +72,7 @@ const SignIn = () => {
                         <label className="label"><span className="label-text">Password</span></label>
                         <input {...register("password", {
                             required: "password is required", minLength: { value: 6, message: "password must be 6 characters" },
-                        })} type="text" placeholder="Password here" className="input input-bordered w-full" />
+                        })} type="password" placeholder="Password here" className="input input-bordered w-full" />
                         {errors.password && <p className='text-red-500 text-sm'>{errors.password?.message}</p>}
                         {signInError && <small>{signInError}</small>}
                     </div>

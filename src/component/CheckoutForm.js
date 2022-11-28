@@ -111,15 +111,15 @@ const CheckoutForm = ({ order }) => {
                     />
                 </div>
                 {cardError && <span className='text-sm'>Error: {cardError}<br /></span>}
-                <button className='btn btn-warning btn-sm px-4 mt-2' type="submit" disabled={!stripe || !clientSecret || isLoading}>
-                    {isLoading ? <Spinner/> : "Pay"}
-                </button>
                 {
                     success && <div>
                         <p className='text-green-500 text-lg'>{success}</p>
                         <p className='text-sm font-semibold'>TransactionId: <span>{transactionId}</span></p>
                     </div>
                 }
+                <button className='btn btn-warning btn-sm px-4 mt-4' type="submit" disabled={!stripe || !clientSecret || isLoading}>
+                    {isLoading ? <Spinner/> : "Pay"}
+                </button>
             </form>
         </div>
     );

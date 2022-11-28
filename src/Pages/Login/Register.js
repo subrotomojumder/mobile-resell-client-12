@@ -107,7 +107,7 @@ const Register = () => {
                         <label className="label"><span className="label-text">Password</span></label>
                         <input {...register("password", {
                             required: "password is required", minLength: { value: 6, message: "password must be 6 characters" },
-                        })} type="text" placeholder="Password here" className="input input-bordered w-full" />
+                        })} type="password" placeholder="Password here" className="input input-bordered w-full" />
                         {errors.password && <p className='text-red-500 text-sm'>{errors.password?.message}</p>}
                     </div>
                     <div className="form-control w-full max-w-xs mb-3">
