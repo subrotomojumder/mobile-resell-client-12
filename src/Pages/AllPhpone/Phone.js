@@ -84,6 +84,7 @@ const Phone = ({ phone, setOrderPhone }) => {
                                 setOrderPhone(phone)
                             }}
                             htmlFor="order-modal"
+                            data-aos="flip-right"
                             className="btn btn-secondary w-60"
                         >
                             Order Now <FaCartPlus className='ml-2 text-xl hover:text-green-500' />

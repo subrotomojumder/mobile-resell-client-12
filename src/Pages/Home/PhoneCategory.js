@@ -21,13 +21,14 @@ const PhoneCategory = () => {
                 categories?.map((category, i) => <div key={i} className={`hero shadow-lg min-h-[70vh] md:px-24 py-4 text-center lg:text-left ${i === 1 ? 'bg-sky-100' : ' '}`}>
                     <div className={`hero-content flex-col ${i !== 1 ? 'lg:flex-row-reverse' : 'lg:flex-row justify-between'}`}>
                         <div>
-                            <img src={`${category.image}`} alt='' className="rounded-lg lg:w-[800px]" />
+                            <img
+                             data-aos="zoom-in-down" src={`${category.image}`} alt='' className="rounded-lg lg:w-[800px]" />
                         </div>
                         <div>
                             <h1 className="text-6xl font-thin">{category.category}</h1>
                             <h2 className="text-2xl font-bold mt-4 text-sky-700">{category.header}</h2>
                             <p className="py-3 text-lg font-medium">{category.details}</p>
-                            <Link to={`/category/${category?.category}`}><button className={`btn btn-outline bg-green-200 ${clicked && 'rounded-full btn-info'}`} onClick={()=> setClicked(true)}>see all phones <FaArrowRight className='ml-2'/></button></Link>
+                            <Link to={`/category/${category?.category}`}><button data-aos="zoom-in" className={`btn btn-outline bg-green-200 ${clicked && 'rounded-full btn-info'}`} onClick={()=> setClicked(true)}>see all phones <FaArrowRight className='ml-2'/></button></Link>
                         </div>
                     </div>
                 </div>)
