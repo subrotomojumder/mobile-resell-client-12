@@ -20,6 +20,7 @@ server site code link: [https://github.com/programming-hero-web-course-4/b612-us
 - mongodb database crud operation
 - json web token nodejs
 - Stripe payment gateway
+- aos animation
 
 ### Admin 
 #### email:  antora@bb.com
