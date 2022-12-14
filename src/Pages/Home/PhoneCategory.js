@@ -14,7 +14,7 @@ const PhoneCategory = () => {
         return <Spinner></Spinner>
     }
     return (
-        <div className='bg-slate-50 pt-16'>
+        <div id='category' className='bg-slate-50 pt-16'>
             <h3 className='text-3xl font-thin text-center'>Our resell product category</h3>
             
             {

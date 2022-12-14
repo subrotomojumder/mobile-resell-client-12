@@ -12,7 +12,7 @@ const Navbar = ({children}) => {
     const naveItems = <>
         <li className='font-semibold'><Link to='/'>Home</Link></li>
         <li className='font-semibold'><Link to=''>All-Products</Link></li>
-        <li className='font-semibold'><Link to='/blog'>Blog</Link></li>
+        <li className='font-semibold'><Link to='/blog'>FAQ</Link></li>
         {user?.email && <li className='font-bold lg:hidden'><button onClick={handleLogOut} >Logout</button></li>}
     </>;
     return (
