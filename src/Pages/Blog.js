@@ -1,8 +1,13 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const Blog = () => {
     return (
         <div className='mx-8 lg:mx-20 mb-10'>
+            <Helmet>
+                <title>FAQ-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
             <h2 className='text-center mt-6 text-2xl text-cyan-600'>Question and Answer</h2>
             <div>
                 <h5 className='text-lg font-semibold mt-4'>Q.1. What are the different ways to manage a state in a React application?</h5>

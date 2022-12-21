@@ -21,6 +21,8 @@ server site code link: [https://github.com/programming-hero-web-course-4/b612-us
 - json web token nodejs
 - Stripe payment gateway
 - aos animation
+- react-slick-carousel
+- react-helmet
 
 ### Admin 
 #### email:  antora@bb.com

@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
@@ -54,6 +55,10 @@ if (!myProducts.length) {
 }
 return (
     <div>
+        <Helmet>
+                <title>Products-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
         <h2 className='text-3xl my-2 text-center'>All products</h2>
         <div className="overflow-x-auto">
             <table className="table w-full">

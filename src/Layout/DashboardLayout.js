@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import useUserRole from '../Hooks/checkUserRole';
 import Navbar from '../Pages/Shared/Navbar';
@@ -8,6 +8,13 @@ import Navbar from '../Pages/Shared/Navbar';
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
     const [userRole, isLoading] = useUserRole(user?.email);
+    const linkStyle = (isActive) => {
+        if (isActive) {
+            return 'font-semibold mt-1 text-lg pl-4 bg-sky-300 hover:bg-sky-400 py-3 border-2';
+        }else{
+            return 'font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2';
+        }
+    }
     return (
         <div>
             <Navbar>
@@ -26,18 +33,19 @@ const DashboardLayout = () => {
                     <ul className="menu p-4 w-72 text-white lg:text-base-content">
                         { isLoading ? <></> : userRole === "Admin" ?
                             <>
-                                <Link to='/dashboard/all-sellers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>All Sellers</li></Link>
-                                <Link to='/dashboard/all-buyers' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>All Buyers</li></Link>
-                                <Link to='/dashboard/reported-items' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>Reported Items</li></Link>
+                                <NavLink to='/dashboard/all-sellers' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>All Sellers</li></NavLink>
+                                <NavLink to='/dashboard/all-buyers' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>All Buyers</li></NavLink>
+                                <NavLink to='/dashboard/reported-items' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>Reported Items</li></NavLink>
                             </>
                             : userRole === "Sellers" ?
                                 <>
-                                    <Link to='/dashboard/add-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>Add A product</li></Link>
-                                    <Link to='/dashboard/my-products' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>My Products</li></Link>
+                                    <NavLink to='/dashboard/add-products' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>Add A product</li></NavLink>
+                                    <NavLink to='/dashboard/my-products' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>My Products</li></NavLink>
+                                    <NavLink to='/dashboard/my-orders' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>My orders</li></NavLink>
                                 </>
                                 : <>
-                                    <Link to='/dashboard/my-orders' className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>My orders</li></Link>
-                                    <Link className='font-semibold mt-1 text-lg pl-4 hover:bg-sky-400 py-3 border-2'><li>My Wishlist</li></Link>
+                                    <NavLink to='/dashboard/my-orders' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>My orders</li></NavLink>
+                                    <NavLink className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>My Wishlist</li></NavLink>
                                 </>
                         }
                     </ul>

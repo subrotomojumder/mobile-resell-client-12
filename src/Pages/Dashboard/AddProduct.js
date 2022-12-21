@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import Spinner from '../Shared/Spinner';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const AddProduct = () => {
     const { user } = useContext(AuthContext);
@@ -64,6 +65,10 @@ const AddProduct = () => {
 
     return (
         <div className='h-[700px] flex justify-center items-center'>
+            <Helmet>
+                <title>Add PD-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
             <div className='md:w-[600px] border rounded-lg p-8'>
                 <h2 className='text-4xl semibold mb-2 text-primary text-center'>Add a new Product</h2>
                 <h5 className='text-center'>{postTime}</h5>

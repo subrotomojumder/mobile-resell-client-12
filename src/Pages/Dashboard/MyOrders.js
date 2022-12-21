@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import toast from 'react-hot-toast';
 import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -41,6 +42,10 @@ const MyOrders = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Orders-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
             <h1 className='text-3xl font-thin text-center my-1'>My Orders</h1>
             <div className="overflow-x-auto w-full">
                 <table className="table table-zebra w-full">

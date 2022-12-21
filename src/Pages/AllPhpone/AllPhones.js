@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import toast from 'react-hot-toast';
 import { useLoaderData, useNavigate, useNavigation } from 'react-router-dom';
 import OrderModal from '../../component/OrderModal';
@@ -57,6 +58,10 @@ const AllPhones = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>{phones[0].category}-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
             <div>
                 {!phones.length ? <div className='h-screen flex items-center justify-center'><h5 className='text-4xl font-thin text-center'>No available second hand <br /> resell phone !!</h5></div>
                     :

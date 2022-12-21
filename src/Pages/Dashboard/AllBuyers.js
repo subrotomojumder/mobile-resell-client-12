@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import toast from 'react-hot-toast';
 import GenericConfirmToast from '../../component/GenericConfirmToast';
 
@@ -37,7 +38,10 @@ const AllBuyers = () => {
         setBuyer(null);
     }
     return (
-        <div>
+        <div><Helmet>
+            <title>Buyers-Mobile Resell Shop</title>
+            <meta name="description" content="Helmet application" />
+        </Helmet>
             <h2 className='text-3xl my-2 text-center'>All Buyers</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
@@ -88,7 +92,7 @@ const AllBuyers = () => {
                         des={buyer._id}
                         value={`Email: ${buyer.email}`}
                     ></GenericConfirmToast>
-                    
+
                 }
             </div>
         </div >

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import toast from 'react-hot-toast';
 import { FaReply } from 'react-icons/fa';
 import GenericConfirmToast from '../../component/GenericConfirmToast';
@@ -39,6 +40,10 @@ const ReportItems = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Reports-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
             <h2 className='text-3xl my-2 text-center'>Reported phones</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">

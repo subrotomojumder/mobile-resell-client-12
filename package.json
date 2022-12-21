@@ -16,6 +16,7 @@
     "react": "^18.2.0",
     "react-animated-text": "^0.1.4",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.39.5",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
@@ -23,6 +24,8 @@
     "react-moving-text": "^0.0.7",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

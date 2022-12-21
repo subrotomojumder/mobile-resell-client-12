@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FaGooglePlusG } from 'react-icons/fa';
@@ -75,6 +76,10 @@ const Register = () => {
 
     return (
         <div className='h-[700px] flex justify-center items-center'>
+            <Helmet>
+                <title>Register-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
             <div className='w-96 border rounded-lg p-8 relative'>
                 <h2 className='text-4xl semibold mb-2 text-center'>Register</h2>
                 <form onSubmit={handleSubmit(handleRegister)}>

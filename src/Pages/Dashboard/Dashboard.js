@@ -1,5 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../context/AuthProvider';
 import Spinner from '../Shared/Spinner';
 
@@ -8,6 +9,10 @@ const Dashboard = () => {
 
     return (
         <div className='h-screen flex justify-center lg:pt-12 bg-green-100'>
+            <Helmet>
+                <title>Dashboard-Mobile Resell Shop</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
             {
                 loading ? <Spinner></Spinner>
                     : <div className='text-center'>
