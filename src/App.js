@@ -7,12 +7,14 @@ import { useEffect } from 'react';
 
 function App() {
   useEffect(() => {
-    AOS.init();
+    AOS.init({
+      duration: 1000,
+    });
     AOS.refresh();
   }, [])
   return (
     <div className='max-w-[1300px] mx-auto'>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </div>
   );
 }

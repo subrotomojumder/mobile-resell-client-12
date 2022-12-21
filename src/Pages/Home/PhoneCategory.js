@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Spinner from '../Shared/Spinner';
+import background from '../../assets/image/categoryBG.jpg';
 
 const PhoneCategory = () => {
     const [clicked, setClicked] = useState(false);
@@ -14,17 +15,16 @@ const PhoneCategory = () => {
         return <Spinner></Spinner>
     }
     return (
-        <div id='category' className='bg-slate-50 pt-16'>
-            <h3 className='text-3xl font-thin text-center'>Our resell product category</h3>
-            
+        <div id='category' className='pt-16' style={{ background: `linear-gradient(90deg, rgba(255, 99, 71, 0.1), rgba(0, 0, 0, 0)), url(${background})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed'}}>
+            <h3 className='text-2xl md:text-4xl font-thin text-center'>Our resell product category</h3>
             {
-                categories?.map((category, i) => <div key={i} className={`hero shadow-lg min-h-[70vh] md:px-24 py-4 text-center lg:text-left ${i === 1 ? 'bg-sky-100' : ' '}`}>
-                    <div className={`hero-content flex-col ${i !== 1 ? 'lg:flex-row-reverse' : 'lg:flex-row justify-between'}`}>
+                categories?.map((category, i) => <div key={i} className={`hero shadow-lg min-h-[70vh] md:px-24 py-4 text-center lg:text-left ${i === 1 ? ' py-10' : ' '}`}>
+                    <div className={`hero-content flex-col lg:pl-20 ${i !== 1 ? 'lg:flex-row-reverse' : 'lg:flex-row justify-between'}`}>
                         <div>
                             <img
-                             data-aos="zoom-in-down" src={`${category.image}`} alt='' className="rounded-lg lg:w-[800px]" />
+                             data-aos={`${i === 1? "zoom-in-right": "zoom-in-left"}`} src={`${category.image}`} alt='' className="rounded-lg lg:w-[800px]" />
                         </div>
-                        <div>
+                        <div data-aos={`${i === 1? "zoom-in-left": "zoom-in-right"}`}>
                             <h1 className="text-6xl font-thin">{category.category}</h1>
                             <h2 className="text-2xl font-bold mt-4 text-sky-700">{category.header}</h2>
                             <p className="py-3 text-lg font-medium">{category.details}</p>

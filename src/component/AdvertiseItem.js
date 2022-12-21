@@ -4,7 +4,7 @@ const AdvertiseItem = ({advertise}) => {
     const { newPhone, sellerEmail, sellerName, postTime, phoneImage } = advertise;
     const { name, purchasePrice, sellingPrice, storage } = newPhone;
     return (
-        <div className=''>
+        <div className='' data-aos="flip-right">
             <div
                 aria-label="View Item"
                 className=" overflow-hidden duration-300 transform bg-white shadow-sm hover:-translate-y-4  border-2 border-blue-600 rounded-2xl"

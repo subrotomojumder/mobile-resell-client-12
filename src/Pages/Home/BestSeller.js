@@ -60,7 +60,7 @@ const BestSeller = () => {
                         <div className="pb-5">
                             <p className='text-lg font-semibold mt-1'>Seller: {sell.sellerName}</p>
                             <p className="mb-3 text-xs font-semibold text-gray-600">Sells Date: {sell.date}</p>                       
-                            <p className="text-gray-700 font-semibold">Price: {sell.price}</p>
+                            <p className="text-gray-700 font-semibold">Price: {sell.price}tk</p>
                             <p className='text-lg font-mono'>Camera: {sell.camera}</p>
                             <p className="text-gray-700">Battery: {sell.battery}</p>
                             <p className="text-gray-700 mb-2">{sell.storage}</p>

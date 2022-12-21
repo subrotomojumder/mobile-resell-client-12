@@ -30,7 +30,7 @@ const Banner = () => {
                             <h1 className="animate-pulse mb-5 text-3xl font-bold font-serif">WELCOME</h1>
                             <h4 className='mb-4 text-4xl lg:text-5xl text-green-400 font-semibold'><Wave text="Used Mobile Resale Shope" effectChange={0.8} speed={5} /></h4>
                             <p className="mb-5 lg:text-xl">Visit our website to buy and sell used mobiles. Our web market will get your product in front of everyone. If you want you can buy old mobile directly from here</p>
-                            <a href="#category"><button className="btn btn-secondary animate-bounce mt-4 md:mt-10 px-8"> Order <FaArrowRight /></button></a>
+                            <a href="#category"><button className="btn btn-secondary animate-bounce mt-4 md:mt-10 px-8"> Order now <FaArrowRight /></button></a>
                         </div>
                     </div>
                 </div>

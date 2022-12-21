@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import AdvertiseItem from '../../component/AdvertiseItem';
+import background1 from '../../assets/image/advertiseBg.jpg';
 
 const Advertise = () => {
     const [products, setProducts] = useState([])
@@ -9,10 +10,11 @@ const Advertise = () => {
         axios.get(`${process.env.REACT_APP_SERVER_url}/advertised`)
             .then(data => setProducts(data?.data));
     }, [])
+    
     return (
         <>
             { products && products?.length > 0 &&
-                <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                <div className="px-4 pt-16 w-full md:px-24 lg:px-8 lg:py-20" style={{backgroundImage: `url(${background1})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
                     <div className=" mb-10 md:mx-auto sm:text-center md:mb-12">
                         <div>
                             <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
@@ -49,6 +51,7 @@ const Advertise = () => {
                             Offer Resell Phones
                         </h2>
                     </div>
+                    
                     <div className="grid gap-5  mb-8 grid-cols-1 lg:grid-cols-3">
                         {
                             products?.map(advertise => <AdvertiseItem
