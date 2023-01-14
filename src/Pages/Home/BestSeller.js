@@ -51,14 +51,14 @@ const BestSeller = () => {
             </div>
             <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
                 {
-                    sells.map((sell, i) => <div key={i} className="relative overflow-hidden transition-shadow duration-300 bg-white rounded">
+                    sells.map((sell, i) => <div key={i} className="relative overflow-hidden transition-shadow duration-300 bg-white rounded-lg drop-shadow-xl">
                         <img
                             src={sell.seller}
                             className="object-cover w-full h-64 rounded"
                             alt=""
                         />
-                        <div className="pb-5">
-                            <p className='text-lg font-semibold mt-1'>Seller: {sell.sellerName}</p>
+                        <div className="pb-5 pl-6">
+                            <p className='text-lg font-semibold mt-1 text-orange-300'>Seller: {sell.sellerName}</p>
                             <p className="mb-3 text-xs font-semibold text-gray-600">Sells Date: {sell.date}</p>                       
                             <p className="text-gray-700 font-semibold">Price: {sell.price}tk</p>
                             <p className='text-lg font-mono'>Camera: {sell.camera}</p>
@@ -66,7 +66,7 @@ const BestSeller = () => {
                             <p className="text-gray-700 mb-2">{sell.storage}</p>
                             <div className='absolute top-1/3 right-2 mt-6'>
                                 <img className='max-h-40 rounded-3xl' src={sell.phone} alt="" />
-                                <p className="text-xl font-bold leading-5 text-center mt-2">{sell.name}</p>
+                                <p className="text-xl font-semibold leading-5 text-center text-sky-500 mt-2">{sell.name}</p>
                             </div>
                             <div className="flex space-x-4">
 
@@ -80,7 +80,7 @@ const BestSeller = () => {
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
-                                        className="w-5 h-5 text-gray-600 transition-colors duration-200 group-hover:text-deep-purple-accent-700"
+                                        className="w-5 h-5 text-blue-600 fill-orange-400 hover:to-blue-800 transition-colors duration-200 group-hover:text-deep-purple-accent-700"
                                     >
                                         <polyline
                                             points="6 23 1 23 1 12 6 12"
@@ -107,7 +107,7 @@ const BestSeller = () => {
                                         strokeLinejoin="round"
                                         strokeWidth="2"
                                         stroke="currentColor"
-                                        className="w-5 h-5 text-gray-600 transition-colors duration-200 group-hover:text-deep-purple-accent-700"
+                                        className="w-5 h-5 text-blue-600 hover:to-blue-800 transition-colors duration-200 group-hover:text-deep-purple-accent-700"
                                     >
                                         <polyline
                                             points="23 5 23 18 19 18 19 22 13 18 12 18"
