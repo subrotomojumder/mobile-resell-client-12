@@ -11,12 +11,12 @@ const Navbar = ({children}) => {
     }
     const naveItems = <>
         <li className='font-semibold'><Link to='/'>Home</Link></li>
-        <li className='font-semibold'><Link to=''>All-Products</Link></li>
+        <li className='font-semibold'><Link to='/aboutUs'>About Us</Link></li>
         <li className='font-semibold'><Link to='/blog'>FAQ</Link></li>
         {user?.email && <li className='font-bold lg:hidden'><button onClick={handleLogOut} >Logout</button></li>}
     </>;
     return (
-        <div className="navbar bg-sky-200">
+        <div className="navbar bg-sky-200 sticky top-0 z-50">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
