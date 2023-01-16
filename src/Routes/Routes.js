@@ -10,6 +10,7 @@ import AllSellers from '../Pages/Dashboard/AllSellers'
 import Dashboard from '../Pages/Dashboard/Dashboard'
 import MyOrders from '../Pages/Dashboard/MyOrders'
 import MyProducts from '../Pages/Dashboard/MyProducts'
+import MyWishlist from '../Pages/Dashboard/MyWishlist'
 import ReportItems from '../Pages/Dashboard/ReportItems'
 import DisplayError from '../Pages/DisplayError'
 import Home from '../Pages/Home/Home'
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/my-orders',
                 element: <PrivateRoute><MyOrders /></PrivateRoute>
+            },
+            {
+                path: '/dashboard/my-wishlist',
+                element: <PrivateRoute><MyWishlist/></PrivateRoute>
             },
             {
                 path: '/dashboard/all-sellers',

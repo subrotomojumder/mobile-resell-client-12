@@ -45,7 +45,7 @@ const DashboardLayout = () => {
                                 </>
                                 : <>
                                     <NavLink to='/dashboard/my-orders' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>My orders</li></NavLink>
-                                    <NavLink className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>My Wishlist</li></NavLink>
+                                    <NavLink to='/dashboard/my-wishlist' className={({ isActive }) => isActive ? linkStyle(true) : linkStyle()}><li>My Wishlist</li></NavLink>
                                 </>
                         }
                     </ul>
